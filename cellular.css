@@ -68,3 +68,14 @@
 .button:hover {
     background-color: #222;
 }
+.link {
+    text-decoration: none;
+    color: black;
+    cursor: copy;
+}
+.link:hover {
+    color: #222;
+}
+.link:active {
+    cursor: #3b8b30;
+}
