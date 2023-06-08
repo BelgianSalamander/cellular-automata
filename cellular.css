@@ -7,6 +7,7 @@
     flex-direction: row;
     /*1 em of space between each element*/
     gap: 1em;
+    flex-wrap: wrap;
 }
 
 .rule-button {
