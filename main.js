@@ -95,12 +95,12 @@ function onLoad() {
     var alive = base10ToBinary(
       urlParams.get("alive") != undefined
         ? urlParams.get("alive")
-        : binaryToBase10("00110000")
+        : binaryToBase10("001100000")
     );
     var dead = base10ToBinary(
       urlParams.get("dead") != undefined
         ? urlParams.get("dead")
-        : binaryToBase10("00010000")
+        : binaryToBase10("000100000")
     );
     
 
