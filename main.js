@@ -36,7 +36,7 @@ function getDrawDims() {
 
     function base10ToBinary(base10) {
       let binary = "";
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 9; i++) {
         binary = (base10 % 2) + binary;
         base10 = Math.floor(base10 / 2);
       }
