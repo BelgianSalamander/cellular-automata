@@ -90,9 +90,6 @@ function onLoad() {
     canvas.addEventListener("mouseenter", (e) => mouseInDrawRegion = true);
     canvas.addEventListener("mouseleave", (e) => mouseInDrawRegion = false);
 
-    redraw();
-    setInterval(updateGOL, 1000 / 20);
-
     let buttons = document.getElementsByClassName("rule-button");
 
     for (let i = 0; i < buttons.length; i++) {
@@ -137,6 +134,9 @@ function onLoad() {
             });
         });
     });
+
+    redraw();
+    setInterval(updateGOL, 1000 / 20);
 }
 
 function isPaused() {
@@ -194,9 +194,6 @@ function updateGOL() {
                     if (x === i && y === j) {
                         continue;
                     }
-
-                    x = (x + GRID_WIDTH) % GRID_WIDTH;
-                    y = (y + GRID_HEIGHT) % GRID_HEIGHT;
 
                     if (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT) {
                         continue;
