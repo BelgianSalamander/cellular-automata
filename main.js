@@ -33,6 +33,16 @@ function getDrawDims() {
     };
 }
 
+
+    function base10ToBinary(base10) {
+      let binary = "";
+      for (let i = 0; i < 9; i++) {
+        binary = (base10 % 2) + binary;
+        base10 = Math.floor(base10 / 2);
+      }
+      return binary;
+    }
+
 function tryDrawAt(x, y, value) {
     if (value === undefined) value = true;
 
@@ -52,6 +62,13 @@ function tryDrawAt(x, y, value) {
 
     redraw();
 }
+    function binaryToBase10(binary) {
+      let base10 = 0;
+      for (let i = 0; i < binary.length; i++) {
+        base10 += parseInt(binary[i]) * Math.pow(2, binary.length - i - 1);
+      }
+      return base10;
+    }
 
 function onLoad() {
     canvas = document.getElementById("canvas");
@@ -64,6 +81,35 @@ function onLoad() {
     }
 
     const body = document.getElementsByTagName("body")[0];
+
+    const queryString = window.location.search;
+
+
+    const urlParams = new URLSearchParams(queryString);
+
+    let aliveRulesElement = document.getElementById("alive-rules");
+    let deadRulesElement = document.getElementById("dead-rules");
+
+
+
+    var alive = base10ToBinary(
+      urlParams.get("alive") != undefined
+        ? urlParams.get("alive")
+        : binaryToBase10("001100000")
+    );
+    var dead = base10ToBinary(
+      urlParams.get("dead") != undefined
+        ? urlParams.get("dead")
+        : binaryToBase10("000100000")
+    );
+    
+
+    for (let i = 0; i < 9; i++) {
+        aliveRulesElement.children[i].className = "rule-button" + (alive[i] === "1" ? " selected-rule" : "");
+        deadRulesElement.children[i].className = "rule-button" + (dead[i] === "1" ? " selected-rule" : "");
+    }
+
+
 
     body.addEventListener("mousedown", (e) => {
         mouseDown = true;
@@ -169,8 +215,30 @@ function redraw() {
     }
 }
 
+function clickedCopy() {
+    let aliveRulesElement = document.getElementById("alive-rules");
+    let deadRulesElement = document.getElementById("dead-rules");
+
+    let aliveRules = new Array(9).fill("0");
+    let deadRules = new Array(9).fill("0");
+
+    for (let i = 0; i < 9; i++) {
+        aliveRules[i] = aliveRulesElement.children[i].classList.contains("selected-rule")? "1" : "0";
+        deadRules[i] = deadRulesElement.children[i].classList.contains("selected-rule")? "1" : "0";
+    }
+
+    let alive = binaryToBase10(aliveRules.join(""));
+    let dead = binaryToBase10(deadRules.join(""));
+
+    let url = window.location.href.split("?")[0] + "?alive=" + alive + "&dead=" + dead;
+
+    navigator.clipboard.writeText(url);
+}
+
 function updateGOL() {
     if (isPaused()) return;
+
+    
 
     let aliveRulesElement = document.getElementById("alive-rules");
     let deadRulesElement = document.getElementById("dead-rules");
