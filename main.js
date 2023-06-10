@@ -122,8 +122,6 @@ function onLoad() {
 
             //Get all descendants of parent with class "rule-button"
             const buttons = parent.getElementsByClassName("rule-button");
-            console.log(parent);
-            console.log(buttons);
 
             [...buttons].forEach((button) => {
                 button.classList.remove("selected-rule");
